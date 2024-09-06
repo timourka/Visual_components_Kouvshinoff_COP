@@ -9,7 +9,7 @@ namespace Visual_components_Kouvshinoff
 
         public void setExemple(string exemple)
         {
-            toolTip.SetToolTip(textBox, exemple);
+            toolTip.SetToolTip(textBox, "пример: " + exemple);
         }
 
         public CustomTextBox4Date()
@@ -18,7 +18,7 @@ namespace Visual_components_Kouvshinoff
         }
 
         private event EventHandler? _textChanged;
-        public event EventHandler TextChanged
+        public event EventHandler textChanged
         {
             add { _textChanged += value; }
             remove { _textChanged -= value; }

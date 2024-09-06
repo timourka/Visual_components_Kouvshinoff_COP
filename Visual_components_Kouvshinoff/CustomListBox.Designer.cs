@@ -40,6 +40,7 @@
             listBox.Name = "listBox";
             listBox.Size = new Size(150, 150);
             listBox.TabIndex = 0;
+            listBox.SelectedIndexChanged += listBox_SelectedIndexChanged;
             // 
             // CustomListBox
             // 

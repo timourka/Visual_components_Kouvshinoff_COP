@@ -27,9 +27,10 @@ namespace Visual_components_Kouvshinoff
             {
                 if (pattern[i] == endSymbol)
                     throw new WrongPatternException(pattern[i]);
-                if (pattern[i] == startSymbol)
+                else if (pattern[i] == startSymbol)
                 {
                     _pattern.Add(new(sb.ToString(), false));
+                    sb.Clear();
                     i++;
                     while (i < pattern.Length && pattern[i] != endSymbol)
                     {
@@ -37,10 +38,15 @@ namespace Visual_components_Kouvshinoff
                         i++;
                     }
                     if (pattern[i] == endSymbol)
+                    {
                         _pattern.Add(new(sb.ToString(), true));
+                        sb.Clear();
+                    }
                     else
                         throw new WrongPatternException(pattern[i]);
                 }
+                else
+                    sb.Append(pattern[i]);
             }
             if (sb.Length > 0)
                 _pattern.Add(new(sb.ToString(), false));
@@ -68,7 +74,9 @@ namespace Visual_components_Kouvshinoff
                 if (el.isParam)
                 {
                     StringBuilder sb = new StringBuilder();
-                    int end = i == _pattern.Count-1 ? text.Length : text.IndexOf(_pattern[i+1].s, start);
+                    int end = i == _pattern.Count - 1 ? text.Length : text.IndexOf(_pattern[i + 1].s, start);
+                    if (end == start)
+                        end = start + _pattern[i + 1].s.Length;
                     for (int j = start; j < end; j++)
                     {
                         sb.Append(text[j]);
@@ -80,6 +88,8 @@ namespace Visual_components_Kouvshinoff
                     // Преобразуем строку к типу поля и присваиваем значение
                     object convertedValue = Convert.ChangeType(sb.ToString(), fieldInfo.FieldType);
                     fieldInfo.SetValue(ret, convertedValue);
+
+                    start = end;
                 }
                 else
                     start += el.s.Length;
@@ -93,7 +103,7 @@ namespace Visual_components_Kouvshinoff
             StringBuilder sb = new StringBuilder();
             if (_pattern == null)
                 throw new ArgumentNullException(nameof(_pattern));
-            foreach(var el in _pattern)
+            foreach (var el in _pattern)
             {
                 if (el.isParam)
                 {
@@ -103,13 +113,33 @@ namespace Visual_components_Kouvshinoff
                     sb.Append(fieldInfo.GetValue(value));
                 }
                 else
+                {
                     sb.Append(el.s);
+                }
             }
+            listBox.Items.Add(sb.ToString());
+        }
+
+        public void clearList()
+        {
+            listBox.Items.Clear();
         }
 
         public CustomListBox()
         {
             InitializeComponent();
+        }
+
+        private event EventHandler? _selectedIndexChanged;
+        public event EventHandler selectedIndexChanged
+        {
+            add { _selectedIndexChanged += value; }
+            remove { _selectedIndexChanged -= value; }
+        }
+
+        private void listBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _selectedIndexChanged?.Invoke(this, e);
         }
     }
 }

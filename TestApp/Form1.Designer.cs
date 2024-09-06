@@ -40,6 +40,7 @@
             customComboBox.selectedString = "";
             customComboBox.Size = new Size(776, 33);
             customComboBox.TabIndex = 0;
+            customComboBox.selectedIndexChanged += customComboBox_selectedIndexChanged;
             // 
             // customListBox
             // 
@@ -48,6 +49,7 @@
             customListBox.selectedIndex = -1;
             customListBox.Size = new Size(776, 344);
             customListBox.TabIndex = 1;
+            customListBox.selectedIndexChanged += customListBox_selectedIndexChanged;
             // 
             // customTextBox4Date
             // 
@@ -56,6 +58,7 @@
             customTextBox4Date.pattern = null;
             customTextBox4Date.Size = new Size(776, 28);
             customTextBox4Date.TabIndex = 2;
+            customTextBox4Date.textChanged += customTextBox4Date_textChanged;
             // 
             // Form1
             // 

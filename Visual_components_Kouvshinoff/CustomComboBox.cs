@@ -29,8 +29,6 @@
             }
             set
             {
-                if (string.IsNullOrEmpty(value))
-                    throw new ArgumentNullException(nameof(value));
                 comboBox.SelectedItem = value;
             }
         }

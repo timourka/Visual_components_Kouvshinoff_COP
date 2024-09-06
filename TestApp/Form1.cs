@@ -6,7 +6,11 @@ namespace TestApp
     {
         private class testClass
         {
-            int biba; double boba; string stroka;
+            public int biba;
+            public double boba;
+            public string? stroka;
+
+            public testClass() { }
 
             public testClass(int biba, double boba, string stroka)
             {
@@ -14,7 +18,13 @@ namespace TestApp
                 this.boba = boba;
                 this.stroka = stroka;
             }
+
+            public override string ToString()
+            {
+                return $"биба: {biba}, боба: {boba}, строка: {stroka}";
+            }
         }
+
         public Form1()
         {
             InitializeComponent();
@@ -23,11 +33,39 @@ namespace TestApp
             customComboBox.selectedString = "aboba";
 
             customTextBox4Date.setExemple("22.01.2004");
-            customTextBox4Date.pattern = "dd.mm.yyyy";
-            customTextBox4Date.text = DateTime.Now;
+            customTextBox4Date.pattern = "dd.MM.yyyy";
+            customTextBox4Date.text = DateTime.Today;
 
-            customListBox.setPattern("биба: {biba}, боба: {boba}, строка:{stroka}");
+            customListBox.setPattern("биба: {biba}, боба: {boba}, строка: {stroka};", '{', '}');
             customListBox.AddLine<testClass>(new(1, 0.2, "lol"));
+            customListBox.AddLine<testClass>(new(1, 0.2, ";"));
+        }
+
+        private void customComboBox_selectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                MessageBox.Show($"customComboBox_selectedIndexChanged\n{customComboBox.selectedString}");
+            }
+            catch { }
+        }
+
+        private void customListBox_selectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                MessageBox.Show($"customListBox_selectedIndexChanged\n{customListBox.getSelected<testClass>()}");
+            }
+            catch { }
+        }
+
+        private void customTextBox4Date_textChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                MessageBox.Show($"customTextBox4Date_textChanged\n{customTextBox4Date.text}");
+            }
+            catch { }
         }
     }
 }
