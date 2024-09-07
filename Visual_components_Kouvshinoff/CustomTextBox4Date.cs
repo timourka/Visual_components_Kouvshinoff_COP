@@ -5,16 +5,23 @@ namespace Visual_components_Kouvshinoff
 {
     public partial class CustomTextBox4Date : UserControl
     {
-        public string? pattern {  get; set; }
-
-        public void setExemple(string exemple)
-        {
-            toolTip.SetToolTip(textBox, "пример: " + exemple);
-        }
-
         public CustomTextBox4Date()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// шаблон которому должна соответствовать дата, y - год, d - день, M - месяц, подробнее: https://learn.microsoft.com/ru-ru/dotnet/standard/base-types/custom-date-and-time-format-strings
+        /// </summary>
+        public string? pattern {  get; set; }
+
+        /// <summary>
+        /// установить пример который будет отображаться в toolTip
+        /// </summary>
+        /// <param name="exemple"></param>
+        public void setExemple(string exemple)
+        {
+            toolTip.SetToolTip(textBox, "пример: " + exemple);
         }
 
         private event EventHandler? _textChanged;
@@ -23,8 +30,8 @@ namespace Visual_components_Kouvshinoff
             add { _textChanged += value; }
             remove { _textChanged -= value; }
         }
-
-        public DateTime text
+        
+        public DateTime date
         {
             get
             {

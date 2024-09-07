@@ -34,7 +34,7 @@ namespace TestApp
 
             customTextBox4Date.setExemple("22.01.2004");
             customTextBox4Date.pattern = "dd.MM.yyyy";
-            customTextBox4Date.text = DateTime.Today;
+            customTextBox4Date.date = DateTime.Today;
 
             customListBox.setPattern("биба: {biba}, боба: {boba}, строка: {stroka};", '{', '}');
             customListBox.AddLine<testClass>(new(1, 0.2, "lol"));
@@ -63,7 +63,7 @@ namespace TestApp
         {
             try
             {
-                MessageBox.Show($"customTextBox4Date_textChanged\n{customTextBox4Date.text}");
+                MessageBox.Show($"customTextBox4Date_textChanged\n{customTextBox4Date.date}");
             }
             catch { }
         }

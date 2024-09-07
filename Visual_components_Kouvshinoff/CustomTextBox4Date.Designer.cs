@@ -42,6 +42,12 @@
             textBox.TabIndex = 0;
             textBox.TextChanged += textBox_TextChanged;
             // 
+            // toolTip
+            // 
+            toolTip.AutoPopDelay = 5000;
+            toolTip.InitialDelay = 200;
+            toolTip.ReshowDelay = 100;
+            // 
             // CustomTextBox4Date
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);

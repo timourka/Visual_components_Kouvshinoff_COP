@@ -2,6 +2,11 @@
 {
     public partial class CustomComboBox : UserControl
     {
+        /// <summary>
+        /// так можно добавить строку
+        /// </summary>
+        /// <param name="s"> строка которую надо добавить</param>
+        /// <exception cref="ArgumentNullException"> если строка пустая </exception>
         public void addString(string s)
         {
             if (string.IsNullOrEmpty(s))
@@ -16,11 +21,17 @@
             }
         }
 
+        /// <summary>
+        /// очистить весь список
+        /// </summary>
         public void clearList()
         {
             comboBox.Items.Clear();
         }
 
+        /// <summary>
+        /// выбранная строка
+        /// </summary>
         public string selectedString
         {
             get

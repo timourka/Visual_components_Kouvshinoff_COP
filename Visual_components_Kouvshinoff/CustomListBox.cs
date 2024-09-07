@@ -6,6 +6,11 @@ namespace Visual_components_Kouvshinoff
 {
     public partial class CustomListBox : UserControl
     {
+        public CustomListBox()
+        {
+            InitializeComponent();
+        }
+
         private class Element
         {
             public string s;
@@ -19,6 +24,13 @@ namespace Visual_components_Kouvshinoff
 
         private List<Element>? _pattern;
 
+        /// <summary>
+        /// функция для задания шаблона строки
+        /// </summary>
+        /// <param name="pattern">шаблон строки</param>
+        /// <param name="startSymbol">символ начала переменной</param>
+        /// <param name="endSymbol">символ конца переменной</param>
+        /// <exception cref="WrongPatternException">выбрасывается если некоректно задан шаблон</exception>
         public void setPattern(string pattern, char startSymbol, char endSymbol)
         {
             _pattern = new List<Element>();
@@ -58,6 +70,14 @@ namespace Visual_components_Kouvshinoff
             get { return listBox.SelectedIndex; }
         }
 
+        /// <summary>
+        /// получить объект из выбранной строки
+        /// </summary>
+        /// <typeparam name="T">тип объекта</typeparam>
+        /// <returns>объект из выбранной строки</returns>
+        /// <exception cref="Exception">если строка не выбрана</exception>
+        /// <exception cref="ArgumentNullException">шаблона нет</exception>
+        /// <exception cref="NullReferenceException">у типа нет поля которое указано в шаблоне</exception>
         public T getSelected<T>() where T : new()
         {
             T ret = new T();
@@ -98,6 +118,13 @@ namespace Visual_components_Kouvshinoff
             return ret;
         }
 
+        /// <summary>
+        /// добавить строку на основе объекта
+        /// </summary>
+        /// <typeparam name="T">тип объекта</typeparam>
+        /// <param name="value">объект</param>
+        /// <exception cref="ArgumentNullException">нет шаблона</exception>
+        /// <exception cref="NullReferenceException">в шаблоне есть поле которого нет в объекте</exception>
         public void AddLine<T>(T value)
         {
             StringBuilder sb = new StringBuilder();
@@ -120,14 +147,12 @@ namespace Visual_components_Kouvshinoff
             listBox.Items.Add(sb.ToString());
         }
 
+        /// <summary>
+        /// очистить список
+        /// </summary>
         public void clearList()
         {
             listBox.Items.Clear();
-        }
-
-        public CustomListBox()
-        {
-            InitializeComponent();
         }
 
         private event EventHandler? _selectedIndexChanged;
