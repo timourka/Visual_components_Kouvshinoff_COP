@@ -101,13 +101,23 @@ namespace Visual_components_Kouvshinoff
                     {
                         sb.Append(text[j]);
                     }
+
                     FieldInfo? fieldInfo = typeof(T).GetField(el.s);
                     if (fieldInfo == null)
-                        throw new NullReferenceException(el.s);
-
-                    // Преобразуем строку к типу поля и присваиваем значение
-                    object convertedValue = Convert.ChangeType(sb.ToString(), fieldInfo.FieldType);
-                    fieldInfo.SetValue(ret, convertedValue);
+                    {
+                        PropertyInfo propertyInfo = typeof(T).GetProperty(el.s);
+                        if (propertyInfo == null)
+                            throw new NullReferenceException(el.s);
+                        // Преобразуем строку к типу свойства и присваиваем значение
+                        object convertedValue = Convert.ChangeType(sb.ToString(), propertyInfo.PropertyType);
+                        propertyInfo.SetValue(ret, convertedValue);
+                    }
+                    else
+                    {
+                        // Преобразуем строку к типу поля и присваиваем значение
+                        object convertedValue = Convert.ChangeType(sb.ToString(), fieldInfo.FieldType);
+                        fieldInfo.SetValue(ret, convertedValue);
+                    }
 
                     start = end;
                 }
@@ -136,8 +146,16 @@ namespace Visual_components_Kouvshinoff
                 {
                     FieldInfo? fieldInfo = typeof(T).GetField(el.s);
                     if (fieldInfo == null)
-                        throw new NullReferenceException(el.s);
-                    sb.Append(fieldInfo.GetValue(value));
+                    {
+                        PropertyInfo propertyInfo = typeof(T).GetProperty(el.s);
+                        if (propertyInfo == null)
+                            throw new NullReferenceException(el.s);
+                        sb.Append(propertyInfo.GetValue(value));
+                    }
+                    else
+                    {
+                        sb.Append(fieldInfo.GetValue(value));
+                    }
                 }
                 else
                 {

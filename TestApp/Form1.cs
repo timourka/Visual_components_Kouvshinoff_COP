@@ -6,7 +6,8 @@ namespace TestApp
     {
         private class testClass
         {
-            public int biba;
+            public int biba { get { return _biba;  } set { _biba = value; } }
+            private int _biba;
             public double boba;
             public string? stroka;
 

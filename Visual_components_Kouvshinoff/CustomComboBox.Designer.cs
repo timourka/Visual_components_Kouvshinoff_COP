@@ -34,6 +34,8 @@
             // comboBox
             // 
             comboBox.Dock = DockStyle.Fill;
+            comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox.ForeColor = SystemColors.ActiveBorder;
             comboBox.FormattingEnabled = true;
             comboBox.Location = new Point(0, 0);
             comboBox.Name = "comboBox";
